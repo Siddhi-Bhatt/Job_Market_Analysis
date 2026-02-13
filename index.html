@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Job Match - AI-Powered Career Insights</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="landing-page">
+        
+        <nav class="navbar">
+            <div class="nav-brand">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">SmartMatch</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+            </div>
+        </nav>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="badge-icon">✨</span>
+                    <span>AI-Powered Analysis</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Land Your Dream Job with
+                    <span class="gradient-text">AI-Powered Matching</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Get instant AI-powered feedback on your resume. Improve ATS compatibility,
+                    optimize keywords, and land more interviews.
+                </p>
+
+                <div class="upload-section">
+                    <div class="upload-box" id="uploadBox">
+                        <div class="upload-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Drop your resume here</h3>
+                        <p>or click to browse from your computer</p>
+                        <p class="file-support">Supports PDF, DOC, DOCX • Max 5MB</p>
+                        <input type="file" id="resumeInput" accept=".pdf,.doc,.docx" hidden>
+                        <button class="btn-select" id="selectFileBtn">Select File</button>
+                    </div>
+
+                    <div class="upload-status" id="uploadStatus" style="display: none;">
+                        <div class="status-icon">✓</div>
+                        <div class="status-content">
+                            <h4 id="fileName"></h4>
+                            <p id="statusMessage"></p>
+                        </div>
+                        <button class="btn-analyze" id="analyzeBtn">Analyze Resume</button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">87%</div>
+                        <div class="stat-label">Avg Match Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2.5x</div>
+                        <div class="stat-label">More Interviews</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Jobs Matched</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="dashboard-page" style="display: none;">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">SmartMatch</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-secondary" id="uploadNewBtn">Upload New Resume</button>
+                <div class="user-menu">
+                    <div class="avatar">S</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Your Profile</h3>
+                    <div class="profile-card">
+                        <div class="profile-avatar">S</div>
+                        <div class="profile-info">
+                            <h4 id="profileName">Your Resume</h4>
+                            <p id="skillCount">0 skills detected</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Filters</h3>
+                    <div class="filter-group">
+                        <label>Job Title</label>
+                        <input type="text" id="jobQuery" value="data analyst" class="filter-input">
+                    </div>
+                    <div class="filter-group">
+                        <label>Location</label>
+                        <select id="location" class="filter-input">
+                            <option value="in">India</option>
+                            <option value="us">USA</option>
+                            <option value="gb">UK</option>
+                            <option value="sg">Singapore</option>
+                            <option value="au">Australia</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="searchBtn">Search Jobs</button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Stats Overview -->
+                <div class="overview-stats">
+                    <div class="stat-card-lg">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-details">
+                            <div class="stat-value" id="activeMatches">0</div>
+                            <div class="stat-label">Active Matches</div>
+                            <div class="stat-trend" id="matchesTrend">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="stat-card-lg">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-details">
+                            <div class="stat-value" id="avgScore">0%</div>
+                            <div class="stat-label">Avg Match Score</div>
+                            <div class="stat-trend" id="scoreTrend">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Matches -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Top Matches</h2>
+                        <div class="view-options">
+                            <button class="view-btn active" data-view="grid">Grid</button>
+                            <button class="view-btn" data-view="list">List</button>
+                        </div>
+                    </div>
+                    <div class="jobs-grid" id="jobList">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Skills Gap Analysis -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Skills Gap Analysis</h2>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0;">Skills you're missing that employers are looking for</p>
+                    </div>
+                    <div class="skills-list" id="skillsGap">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Job Details Modal -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <p>Analyzing your resume...</p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
